@@ -7,13 +7,14 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo '从GitHub下载项目源码'
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'YMhao', url: 'https://github.com/YMhao/demo.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: 'origin/k8s_test']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'YMhao', url: 'https://github.com/YMhao/demo.git']]])
             }
         }
         stage('构建镜像') {
             steps {
                 sh '''
                     echo $PWD
+                    echo `ls`
                     docker --version
                     cd devops/docker
                     docker build -t nginx:test .
