@@ -13,8 +13,9 @@ pipeline {
         stage('构建镜像') {
             steps {
                 sh '''
-                    ech $PWD
-                    cd ${WORKSPACE}/devops/docker
+                    echo $PWD
+                    docker --version
+                    cd devops/docker
                     docker build -t nginx:test .
                 '''
             }
