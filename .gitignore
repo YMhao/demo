@@ -1,0 +1,6 @@
+devops/build.sh
+devops/notify.sh
+devops/replace_conf.py
+devops/test
+devops/remote
+*.bak

@@ -1,0 +1,14 @@
+pipeline {
+    agent any
+    tools {
+        go 'go 1.11.1'
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                echo '从GitHub下载项目源码'
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'YMhao', url: 'https://github.com/YMhao/demo.git']]])
+            }
+        }
+    }      
+}
