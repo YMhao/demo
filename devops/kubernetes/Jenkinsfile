@@ -10,11 +10,12 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'YMhao', url: 'https://github.com/YMhao/demo.git']]])
             }
         }
-        stage('下载k8s源码') {
+        stage('构建镜像') {
             steps {
-                echo '从GitHub下载项目源码'
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'YMhao', url: 'https://github.com/BangWork/ones-ai-k8s.git']]])
-                ls
+                sh '''
+                    cd ${WORKSPACE}/devops/docker
+                    docker build -t nginx:test .
+                '''
             }
         }
     }      
