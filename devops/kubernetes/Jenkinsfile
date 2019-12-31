@@ -6,7 +6,7 @@ pipeline {
     environment {
         BUILD = sh (script: 'git rev-list HEAD --count', returnStdout: true).trim()
         GIT_COMMIT = sh (script: 'git rev-parse HEAD', returnStdout: true).trim()
-        BRANCH_NAME = sh (script: 'echo ${GIT_BRANCH#origin/} | sed s/\//_/g', returnStdout: true).trim()
+        BRANCH_NAME = sh (script: 'echo ${GIT_BRANCH#origin/} | sed "s/\\//_/g"', returnStdout: true).trim()
     }
     stages {
         stage('Checkout') {
