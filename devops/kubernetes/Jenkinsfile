@@ -18,12 +18,12 @@ pipeline {
         stage('构建镜像') {
             steps {
                 sh '''
-                    echo ${BRANCH_NAME} - ${GIT_COMMIT} - ${BUILD}
+                    echo banche_name ${BRANCH_NAME} - ${GIT_COMMIT} - ${BUILD}
                     echo $PWD
                     echo `ls`
                     docker --version
                     cd devops/docker
-                    docker build -t nginx:test .
+                    # docker build -t nginx:test .
                 '''
             }
         }
