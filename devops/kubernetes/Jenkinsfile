@@ -3,6 +3,11 @@ pipeline {
     tools {
         go 'go 1.11.1'
     }
+    environment {
+        BUILD = sh (script: 'git rev-list HEAD --count', returnStdout: true).trim()
+        GIT_COMMIT = sh (script: 'git rev-parse HEAD', returnStdout: true).trim()
+        BRANCH_NAME = sh (script: 'echo ${GIT_BRANCH#origin/} | sed "s/\//_/g"', returnStdout: true).trim()
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -13,6 +18,7 @@ pipeline {
         stage('构建镜像') {
             steps {
                 sh '''
+                    echo ${BRANCH_NAME} - ${GIT_COMMIT} - ${BUILD}
                     echo $PWD
                     echo `ls`
                     docker --version
